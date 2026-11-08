@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Java · Spring 백엔드 개발자 최일광의 포트폴리오">
+<title>최일광 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #ffffff; --soft: #f3f6fb; --surface: #ffffff; --fg: #1b2a5e; --text: #2b3550; --muted: #5d6b8a;
+  --line: #dde3ee; --accent: #2f6bd8; --accent-soft: #edf4fe; --teal: #2e8b86; --navy: #1b2a5e;
+  --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1424; --soft: #131b2e; --surface: #182139; --fg: #e3e9f7; --text: #c9d3e8; --muted: #8e9bb8;
+    --line: #2a3550; --accent: #7fa8ef; --accent-soft: #1c2a4a; --teal: #6cc4be; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1424; --soft: #131b2e; --surface: #182139; --fg: #e3e9f7; --text: #c9d3e8; --muted: #8e9bb8;
+  --line: #2a3550; --accent: #7fa8ef; --accent-soft: #1c2a4a; --teal: #6cc4be; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; word-break: keep-all; overflow-wrap: break-word; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4, h5, p, ul, figure, dl { margin: 0; }
+ul { padding-left: 1.1em; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; }
+
+/* header */
+.top { position: fixed; inset: 0 0 auto; z-index: 20; transition: background .2s, box-shadow .2s; }
+.top .wrap { display: flex; align-items: center; gap: 8px 22px; flex-wrap: wrap; padding-block: 14px; }
+.top .brand { font-weight: 800; font-size: 19px; color: #fff; text-decoration: none; margin-right: auto; }
+.top nav { display: flex; gap: 18px; }
+.top nav a { color: rgba(255,255,255,.85); text-decoration: none; font-weight: 700; font-size: 15px; }
+.top nav a:hover { color: #fff; }
+.top.solid { background: var(--surface); box-shadow: 0 2px 12px rgba(27,42,94,.12); }
+.top.solid .brand { color: var(--fg); }
+.top.solid nav a { color: var(--muted); }
+.top.solid nav a:hover { color: var(--accent); }
+
+/* hero */
+.hero { min-height: min(92vh, 760px); display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 110px 16px 72px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(47,107,216,.45), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(46,139,134,.35), transparent 45%),
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0/40px 40px,
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0/40px 40px,
+    #1b2a5e; }
+.hero-in { max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.hero .over { font-size: 14px; font-weight: 700; letter-spacing: .3em; color: #8fb0e8; }
+.hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 900; line-height: 1.1; letter-spacing: -2px; }
+.hero h1 small { display: block; font-size: .5em; font-weight: 800; letter-spacing: 0; margin-top: 10px; color: #dde6f7; }
+.hero .bar { width: 64px; height: 4px; background: #5b8ff0; border-radius: 2px; }
+.hero p { font-size: 18px; color: #dde6f7; }
+.hero .go { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 999px; background: #2f6bd8; color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.hero .go:hover { background: #3d7bea; }
+
+.btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.dl { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.7); color: #fff; font-weight: 700; text-decoration: none; }
+.dl::before { content: "↓"; }
+.dl:hover { background: rgba(255,255,255,.12); }
+.contact-dl { margin-top: 20px; }
+
+/* sections */
+.sec { padding-block: 88px; scroll-margin-top: 40px; }
+.sec.alt { background: var(--soft); }
+.sec-title { text-align: center; margin-bottom: 44px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.sec-title h2 { font-size: clamp(30px, 5vw, 44px); font-weight: 900; letter-spacing: 1px; color: var(--fg); }
+.sec-title span { width: 48px; height: 4px; border-radius: 2px; background: var(--accent); }
+
+/* about */
+.about { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 24px; }
+.ab { display: flex; gap: 16px; align-items: flex-start; }
+.ab svg { width: 34px; height: 34px; flex-shrink: 0; fill: var(--fg); }
+.ab dt { font-weight: 800; color: var(--fg); }
+.ab dd { margin: 0; color: var(--muted); }
+
+/* skills */
+.skills { background: var(--surface); border-radius: 18px; box-shadow: 0 12px 36px rgba(27,42,94,.10); padding: 32px 36px; display: flex; flex-direction: column; gap: 22px; }
+.sk-row { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; }
+.sk-row h3 { font-size: 17px; font-weight: 800; color: var(--fg); }
+.sk-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.sk-chips span { font-size: 14px; font-weight: 700; padding: 5px 12px; border-radius: 8px; background: var(--accent-soft); color: var(--fg); border: 1px solid var(--line); }
+.sk-row:nth-child(2) .sk-chips span { background: var(--navy); color: #fff; border-color: var(--navy); }
+.sk-row:nth-child(3) .sk-chips span { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+/* projects */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.card { background: var(--surface); border-radius: 18px; box-shadow: 0 12px 36px rgba(27,42,94,.10); padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+.pill { align-self: flex-start; font-size: 13px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 999px; padding: 4px 14px; }
+.date { font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.card h3 { font-size: 21px; line-height: 1.4; font-weight: 800; color: var(--fg); }
+.card .one { font-weight: 500; color: var(--text); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.card ul { font-size: 15px; display: flex; flex-direction: column; gap: 6px; }
+.card .tech { margin-top: auto; font-size: 14px; color: var(--fg); background: var(--accent-soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.more { align-self: flex-start; font: inherit; font-size: 14px; font-weight: 800; color: #fff; background: var(--navy); border: 0; border-radius: 8px; padding: 9px 18px; cursor: pointer; }
+.more:hover { background: var(--accent); }
+
+/* dialog */
+dialog { width: min(1240px, calc(100% - 24px)); max-height: 90vh; padding: 0; border: 0; border-radius: 18px; background: var(--bg); color: var(--text); box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+dialog::backdrop { background: rgba(14,20,36,.6); }
+.dlg-head { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 26px 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.dlg-head h2 { font-size: clamp(20px, 3.2vw, 26px); font-weight: 800; color: var(--fg); line-height: 1.35; }
+.close { font: inherit; font-size: 18px; width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.dlg-body { padding: 22px 26px 30px; display: flex; flex-direction: column; gap: 22px; }
+
+/* slide viewer */
+.viewer { display: flex; flex-direction: column; gap: 12px; }
+.stage { position: relative; border-radius: 12px; overflow: hidden; background: #e9eef6; box-shadow: 0 6px 20px rgba(27,42,94,.12); }
+.stage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 0; background: rgba(27,42,94,.78); color: #fff; font-size: 28px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; padding-bottom: 4px; }
+.nav:hover { background: var(--accent); }
+.nav:disabled { opacity: .25; cursor: default; }
+.prev { left: 12px; } .next { right: 12px; }
+.vbar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.count { font-family: var(--font-mono); font-size: 14px; color: var(--muted); min-width: 48px; }
+.thumbs { display: flex; gap: 8px; flex-wrap: wrap; }
+.th { padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; background: none; cursor: pointer; opacity: .55; }
+.th img { display: block; width: 112px; height: 63px; object-fit: cover; }
+.th.on { border-color: var(--accent); opacity: 1; }
+.th:hover { opacity: 1; }
+.txt summary { cursor: pointer; font-weight: 800; color: var(--accent); font-size: 15px; }
+.txt-body { display: flex; flex-direction: column; gap: 22px; margin-top: 16px; }
+
+/* detail blocks */
+.meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.meta div { background: var(--surface); padding: 14px 18px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.meta dt { font-size: 13px; font-weight: 800; color: var(--accent); }
+.meta dd { margin: 0; font-size: 15px; }
+figure.diagram { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 14px 12px; display: flex; flex-direction: column; gap: 10px; }
+.diagram .scroll { overflow-x: auto; }
+.diagram svg { display: block; width: 100%; min-width: 640px; height: auto; color: var(--fg); font-family: var(--font-body); }
+.diagram figcaption { font-size: 14px; color: var(--muted); }
+svg .box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+svg .box.hl { stroke: var(--accent); stroke-width: 2; fill: var(--accent-soft); }
+svg .box.tl { stroke: var(--teal); stroke-width: 2; }
+svg .t { fill: currentColor; font-size: 13px; font-weight: 700; }
+svg .s { fill: var(--muted); font-size: 11.5px; }
+svg .lbl { fill: var(--muted); font-size: 11px; font-weight: 500; }
+svg .lbl.hl { fill: var(--accent); font-weight: 700; }
+svg .ln { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+svg .ln.hl { stroke: var(--accent); stroke-width: 2; }
+svg .ah { fill: var(--muted); }
+svg .ah.hl { fill: var(--accent); }
+.years { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.year { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.year .y { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+.year .y strong { font-size: 28px; font-weight: 900; line-height: 1; color: var(--accent); }
+.year .y span { font-size: 14px; font-weight: 800; color: var(--fg); }
+.year ul { font-size: 15px; display: flex; flex-direction: column; gap: 4px; }
+.cases { display: flex; flex-direction: column; gap: 14px; }
+.case { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.case h3 { font-size: 17px; line-height: 1.45; font-weight: 800; color: var(--fg); padding-left: 12px; border-left: 4px solid var(--accent); }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.steps > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; padding: 12px 14px; background: var(--soft); border-radius: 10px; }
+.steps h4 { font-size: 13px; font-weight: 800; color: var(--accent); }
+.steps p { font-size: 14.5px; }
+.steps .result { background: var(--accent-soft); }
+.steps .result p { color: var(--fg); font-weight: 500; }
+.extra { border-top: 1px dashed var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.extra h4 { font-size: 14px; font-weight: 800; color: var(--fg); }
+.extra ul { font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 14px; padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--soft); }
+.chip b { font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+.tbl-wrap { overflow-x: auto; }
+.tbl { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; }
+.tbl th { text-align: left; padding: 8px 10px; background: var(--navy); color: #fff; font-weight: 700; }
+.tbl td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tl > div { background: var(--soft); border-radius: 10px; padding: 12px 14px; }
+.tl h5 { margin: 0 0 6px; font-size: 14px; font-weight: 800; color: var(--accent); }
+.tl dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 14px; }
+.tl dt { font-family: var(--font-mono); color: var(--muted); }
+.tl dd { margin: 0; }
+
+
+/* career */
+.career { display: flex; flex-direction: column; gap: 40px; }
+.job { display: grid; grid-template-columns: 220px 1fr; gap: 32px; }
+.logo { width: 150px; height: 150px; margin: 0 auto; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; letter-spacing: 2px; box-shadow: 0 12px 30px rgba(27,42,94,.2); }
+.job-body { border-left: 2px solid var(--line); padding-left: 32px; display: flex; flex-direction: column; gap: 8px; }
+.job-body > h3 { font-size: 26px; font-weight: 900; color: var(--fg); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.tags span { font-size: 13px; font-weight: 700; color: #fff; background: var(--navy); border-radius: 6px; padding: 3px 10px; }
+.works { list-style: none; padding: 0; margin-top: 12px; display: flex; flex-direction: column; }
+.works li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.works li:last-child { border-bottom: 0; }
+.works h4 { font-size: 16px; font-weight: 800; color: var(--fg); padding-left: 10px; border-left: 4px solid var(--fg); line-height: 1.35; }
+.works .date { margin-top: 2px; }
+.works p:last-child { font-size: 15px; }
+@media (max-width: 760px) {
+  .job { grid-template-columns: 1fr; gap: 16px; }
+  .logo { width: 88px; height: 88px; font-size: 26px; margin: 0; }
+  .job-body { border-left: 0; padding-left: 0; }
+}
+
+/* contact */
+.contact { background: var(--navy); color: #dde6f7; text-align: center; padding-block: 64px; }
+.contact h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 900; color: #fff; margin-bottom: 12px; }
+.contact a { color: #fff; font-weight: 700; }
+footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13px; padding: 18px 16px; }
+
+@media (max-width: 900px) {
+  .about { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .years { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .nav { width: 36px; height: 36px; font-size: 22px; }
+  .th img { width: 72px; height: 41px; }
+  .top nav { gap: 12px; }
+  .top nav a { font-size: 13px; }
+  .about, .meta, .steps, .tl { grid-template-columns: 1fr; }
+  .sk-row { grid-template-columns: 1fr; gap: 8px; }
+  .skills, .card { padding: 22px 18px; }
+  .sec { padding-block: 64px; }
+  .dlg-head, .dlg-body { padding-inline: 16px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">최일광 Portfolio</a>
+    <nav aria-label="섹션 바로가기"><a href="#about">About me</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#career">Career</a><a href="#contact">Contact</a></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <p class="over">BACKEND DEVELOPER</p>
+    <h1>최일광<small>백엔드 개발자 포트폴리오</small></h1>
+    <div class="bar"></div>
+    <p>장비 연동, 데이터 수집, 레거시 시스템 마이그레이션까지, 운영 중에 생기는 문제를 원인부터 찾아 해결해 온 백엔드 개발자입니다.</p>
+    <div class="btns"><a class="go" href="#about">더 알아보기 ↓</a><a class="dl" href="portfolio.pdf" download="최일광_포트폴리오.pdf">PDF 다운로드</a></div>
+  </div>
+</section>
+
+<main>
+  <section class="sec" id="about">
+    <div class="wrap">
+      <div class="sec-title"><h2>ABOUT ME</h2><span></span></div>
+      <dl class="about">
+<div class="ab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8a7 7 0 0 1 14 0Z"/></svg><div><dt>이름</dt><dd>최일광</dd></div></div>
+<div class="ab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v2h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V5a1 1 0 0 1 1-1Zm1 3h4V6h-4Z"/></svg><div><dt>직무</dt><dd>Java · Spring 백엔드 개발자</dd></div></div>
+<div class="ab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm1 4v4.6l3.2 1.9-1 1.7L11 12.7V7Z"/></svg><div><dt>경력</dt><dd>4년 9개월</dd></div></div>
+<div class="ab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3Zm2 2v.4l7 4.6 7-4.6V8l-7 4.5Z"/></svg><div><dt>이메일</dt><dd><a href="mailto:ig95@dgu.ac.kr">ig95@dgu.ac.kr</a></dd></div></div>
+<div class="ab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5Zm-9 9 2-1.1 7 3.9 7-3.9 2 1.1-9 5Zm0 4 2-1.1 7 3.9 7-3.9 2 1.1-9 5Z"/></svg><div><dt>주력</dt><dd>Java · Spring · MariaDB · Linux</dd></div></div>
+<div class="ab"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.6 7 1.4 1.4L6.4 12l3.6 3.6L8.6 17 3.6 12Zm6.8 0 5 5-5 5-1.4-1.4 3.6-3.6-3.6-3.6Z"/></svg><div><dt>GitHub</dt><dd><a href="https://github.com/ilgwang">github.com/ilgwang</a></dd></div></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec alt" id="skills">
+    <div class="wrap">
+      <div class="sec-title"><h2>SKILLS</h2><span></span></div>
+      <div class="skills">
+<div class="sk-row"><h3>Language</h3><div class="sk-chips"><span>Java</span><span>Python</span></div></div>
+<div class="sk-row"><h3>Backend</h3><div class="sk-chips"><span>Spring Boot</span><span>Spring</span><span>전자정부 프레임워크</span><span>MyBatis</span><span>gRPC</span><span>Kafka</span><span>Keycloak</span><span>Flask</span></div></div>
+<div class="sk-row"><h3>Database</h3><div class="sk-chips"><span>MariaDB</span><span>Neo4j</span><span>Trino</span></div></div>
+<div class="sk-row"><h3>Infra · Tool</h3><div class="sk-chips"><span>Rocky Linux</span><span>Tomcat</span><span>Apache NiFi</span><span>GitLab</span><span>MQTT</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="projects">
+    <div class="wrap">
+      <div class="sec-title"><h2>PROJECTS</h2><span></span></div>
+      <div class="cards">
+<article class="card">
+  <span class="pill">홈네트워크 장비사</span>
+  <p class="date">2026.08 – 진행 중</p>
+  <h3>출입통제 통합관리 시스템 구축 시험</h3>
+  <p class="one">생체 정보를 중앙 서버에 등록하고, 이용 권한이 있는 시설의 단말에만 전송하는 출입통제 연동 시스템</p>
+  <ul><li>연동 서버 · 관리 서버 · 로비폰 연동 서버 개발과 시험 환경 구성을 단독 수행</li><li>템플릿만 전송 시 장비가 저장하지 않던 문제를 '템플릿 전용' flag 변환으로 해결</li><li>서버에서 생체 특징값을 추출하는 웹 등록 중복 검사 추가 (차단 기준 0.363)</li><li>장비의 UTC 시간 해석 차이로 어긋나던 출입 허용 시간 보정</li></ul>
+  <p class="tech">Java 21 · Spring Boot 3.3.5 · G-SDK(gRPC) · MariaDB · Rocky Linux 9.7 · MQTT</p>
+  <button type="button" class="more" data-open="access">자세히 보기</button>
+</article>
+<article class="card">
+  <span class="pill">정부출연 연구기관</span>
+  <p class="date">2026.06 – 2026.09</p>
+  <h3>네트워크 디지털 트윈 그래프 데이터 수집</h3>
+  <p class="one">네트워크 설계 정보와 실제 구성 정보를 하나의 그래프 DB에 모아, 장애 위치를 빠르게 찾기 위한 수집 프로세스</p>
+  <ul><li>Nautobot(Kafka) · GitLab(push 훅) 변경을 Neo4j에 자동 반영하는 수집 서버 2종 개발</li><li>단방향 배포망에서 훅이 CSV 내용까지 보내도록 바꿔 push 후 약 1.2초 만에 반영</li><li>CSV에서 사라진 연결을 정리하는 단계를 추가해 그래프와 CSV를 같은 상태로 유지</li><li>토폴로지 테스트용 시각화 뷰어 개발 (Flask · Cytoscape.js)</li></ul>
+  <p class="tech">Java 21 · Spring Boot 3.4 · Kafka · Neo4j · Python · Flask · Cytoscape.js</p>
+  <button type="button" class="more" data-open="twin">자세히 보기</button>
+</article>
+<article class="card">
+  <span class="pill">해외 ODA 사업 (파라과이)</span>
+  <p class="date">2024.12 – 2026.01</p>
+  <h3>축산 데이터허브 통합관리시스템 구축</h3>
+  <p class="one">분리된 2개 시스템의 데이터를 한곳에 모아, 엑셀 수작업 리포트를 대시보드 · 리포트 조회로 전환</p>
+  <ul><li>화면 설계부터 관리시스템 전체 개발 (대시보드 · 리포트, 데이터 사전, 권한 관리, 모니터링)</li><li>날짜 · 금액 · 수량 정리 규칙을 적용해 기존 데이터의 집계 오류 해결</li><li>2회 현지 출장으로 서버 설치 · 사용자 교육 · 인수인계 수행</li><li>운영 중 발견한 리포트 · 대시보드 · 로그인 이슈 4건 조치</li></ul>
+  <p class="tech">Java 8 · Spring Boot 2.3 · MyBatis · MariaDB · Apache NiFi · Google OTP</p>
+  <button type="button" class="more" data-open="datahub">자세히 보기</button>
+</article>
+<article class="card">
+  <span class="pill">국내 통신사</span>
+  <p class="date">2024.02 – 진행 중</p>
+  <h3>트래픽 분석 시스템 운영 및 고도화</h3>
+  <p class="one">Main · B2B · Edge 3개 트래픽 분석 시스템의 운영과 보안 · 기능 고도화를 전담</p>
+  <ul><li>Java 1.8 → 21, Tomcat 9 → 11, Spring 4.3 → 6.1 마이그레이션 (236개 파일 수정)</li><li>Keycloak TOTP 기반 로그인 2차 인증 설계 · 개발</li><li>고도화 오픈 전 결함 43건 조치 (Critical 15건 전부)</li><li>보안 진단 지적 28건 조치, 월 1회 정기점검</li></ul>
+  <p class="tech">Java 21 · Spring 6.1 · 전자정부 4.2 · MyBatis · MariaDB · Trino · Keycloak · Tomcat 11</p>
+  <button type="button" class="more" data-open="traffic">자세히 보기</button>
+</article>
+      </div>
+    </div>
+  </section>
+  <section class="sec alt" id="career">
+    <div class="wrap">
+      <div class="sec-title"><h2>CAREER</h2><span></span></div>
+      <div class="career">
+<article class="job">
+  <div class="logo" aria-hidden="true">AR</div>
+  <div class="job-body">
+    <h3>Archys</h3>
+    <p class="date">2024.02 – 재직 중</p>
+    <div class="tags"><span>연구원</span><span>백엔드 · 서버 개발</span><span>웹 개발</span></div>
+    <ul class="works"><li><h4>출입통제 통합관리 시스템 구축 시험</h4><p class="date">2026.08 – 진행 중</p><p>생체인식 단말 연동 서버 · 관리 서버 · 로비폰 연동 서버 개발, Rocky Linux 시험 환경 구성</p></li><li><h4>홈네트워크 월패드 앱 개발 및 통합테스트 지원</h4><p class="date">2026.08 – 진행 중</p><p>월패드 Android 앱 상세 화면 개발, 개발망 구성 · 방화벽 화이트리스트 정리</p></li><li><h4>네트워크 디지털 트윈 그래프 데이터 수집</h4><p class="date">2026.06 – 2026.09</p><p>Nautobot · GitLab 변경을 Kafka · 훅으로 받아 Neo4j에 자동 반영하는 수집 서버와 토폴로지 뷰어 개발</p></li><li><h4>차량 멀티패스 라우터 관리 시스템</h4><p class="date">2026.05 – 2026.07</p><p>모니터링 · 설정 REST API 서버 신규 개발, JWT 인증 (Spring Boot · JPA · MyBatis)</p></li><li><h4>축산 데이터허브 통합관리시스템 구축</h4><p class="date">2024.12 – 2026.01</p><p>화면 설계부터 관리시스템 전체 개발, 파라과이 현지 설치 · 교육 · 인수인계</p></li><li><h4>신원정보관리 시스템</h4><p class="date">2024.06 – 2025.11</p><p>화면 설계 및 UI/UX 개선, 서버 기능 개선 (Go), React 프론트와 SSO 통합</p></li><li><h4>빌링 시스템 네트워크 제어 API</h4><p class="date">2024.03 – 2024.04</p><p>SNMP 기반 네트워크 제어 API 개발 (Node.js)</p></li><li><h4>트래픽 분석 시스템 운영 및 고도화</h4><p class="date">2024.02 – 진행 중</p><p>Main · B2B · Edge 3개 시스템 운영, Java 21 · Tomcat 11 마이그레이션, 로그인 2차 인증 도입</p></li></ul>
+  </div>
+</article>
+<article class="job">
+  <div class="logo" aria-hidden="true">NC</div>
+  <div class="job-body">
+    <h3>넥스트코어테크놀로지</h3>
+    <p class="date">2023.06 – 2024.01 (8개월)</p>
+    <div class="tags"><span>매니저</span><span>솔루션팀</span><span>웹 개발</span></div>
+    <ul class="works"><li><h4>트래픽 분석 시스템 고도화</h4><p class="date">2023.12 – 2024.01</p><p>DB 장애로 데이터가 유실된 상태에서 트래픽 분석 화면 기능 개선 및 추가 개발 (Impala)</p></li><li><h4>NMS 솔루션 고도화</h4><p class="date">2023.08 – 2024.01</p><p>장비 관리 · 모니터링 화면 기능 개선 및 추가 개발</p></li><li><h4>지게차 렌탈 시스템 개발</h4><p class="date">2023.09 – 2023.10</p><p>기능 개선 및 추가 기능 개발 (Spring Boot)</p></li><li><h4>반지하 침수 예방 모니터링 시스템 구축</h4><p class="date">2023.06 – 2023.08</p><p>모니터링 시스템 DB · 화면 설계 및 개발</p></li></ul>
+  </div>
+</article>
+<article class="job">
+  <div class="logo" aria-hidden="true">MJ</div>
+  <div class="job-body">
+    <h3>㈜엠제이아이티</h3>
+    <p class="date">2022.01 – 2023.04 (1년 4개월)</p>
+    <div class="tags"><span>주임</span><span>기술개발부</span><span>웹 개발</span></div>
+    <ul class="works"><li><h4>AICC 관리자 포털 고도화</h4><p class="date">2023.01 – 2023.04</p><p>시스템 화면 설계 및 고도화 (Spring Boot · PostgreSQL)</p></li><li><h4>장학지원 시스템 고도화</h4><p class="date">2023.01 – 2023.02</p><p>기능 개선 및 추가 기능 개발</p></li><li><h4>AICC API GW · 관리자 운영</h4><p class="date">2022.06 – 2022.12</p><p>API 연동 및 테스트, 관리자 기능 개선 및 추가 개발</p></li><li><h4>AICC 관리자 포털</h4><p class="date">2022.02 – 2022.04</p><p>관리자 포털 UI/UX 개발</p></li></ul>
+  </div>
+</article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>CONTACT</h2>
+    <p><a href="mailto:ig95@dgu.ac.kr">ig95@dgu.ac.kr</a></p>
+    <p class="contact-dl"><a class="dl" href="portfolio.pdf" download="최일광_포트폴리오.pdf">PDF 다운로드</a></p>
+  </div>
+</section>
+<footer>© 2026 최일광</footer>
+
+<dialog id="d-access" aria-labelledby="t-access">
+  <div class="dlg-head"><div><p class="date">홈네트워크 장비사 · 2026.08 – 진행 중</p><h2 id="t-access">출입통제 통합관리 시스템 구축 시험</h2></div><button type="button" class="close" aria-label="닫기">✕</button></div>
+  <div class="dlg-body">
+<div class="viewer" data-slides="03:출입통제 통합관리 시스템 구축 시험 개요|04:템플릿 정보만 전송 시 장비가 생체정보를 저장하지 않는 이슈|05:한 사람의 생체 정보가 여러 번 저장되어, 인증이 되지 않는 이슈|06:장비와 서버의 시간 기준이 달라 출입 허용 시간이 어긋나는 이슈"><div class="stage"><img class="main" src="slides/03.jpg" alt="출입통제 통합관리 시스템 구축 시험 개요" width="1600" height="900" loading="lazy"><button type="button" class="nav prev" aria-label="이전 슬라이드">‹</button><button type="button" class="nav next" aria-label="다음 슬라이드">›</button></div><div class="vbar"><span class="count">1 / 4</span><div class="thumbs"><button type="button" class="th on" data-i="0" aria-label="출입통제 통합관리 시스템 구축 시험 개요"><img src="slides/03.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="1" aria-label="템플릿 정보만 전송 시 장비가 생체정보를 저장하지 않는 이슈"><img src="slides/04.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="2" aria-label="한 사람의 생체 정보가 여러 번 저장되어, 인증이 되지 않는 이슈"><img src="slides/05.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="3" aria-label="장비와 서버의 시간 기준이 달라 출입 허용 시간이 어긋나는 이슈"><img src="slides/06.jpg" alt="" loading="lazy"></button></div></div></div>
+<details class="txt"><summary>텍스트로 보기</summary><div class="txt-body">
+<dl class="meta">
+      <div><dt>목적</dt><dd>생체 정보를 중앙 서버에 등록하고, 이용 권한이 있는 시설의 단말에만 전송</dd></div>
+      <div><dt>역할</dt><dd>연동 서버 · 관리 서버 · 로비폰 연동 서버 개발, 시험 환경 구성 (단독 수행)</dd></div>
+      <div><dt>장비</dt><dd>BioStation 3 ×2, 로비폰 1, 수집 서버 1, 등록 PC 2</dd></div>
+      <div><dt>환경</dt><dd>Java 21 · Spring Boot 3.3.5 · G-SDK(gRPC) · MariaDB 10.5 · Rocky Linux 9.7</dd></div>
+    </dl>
+    <figure class="diagram">
+      <div class="scroll">
+        <svg viewBox="0 0 860 330" role="img" aria-label="등록 단말 서버가 관리 서버에 등록하고, 관리 서버는 시설 장비에 생체 정보를 전송·회수하며, 로비폰 연동 서버를 거쳐 MQTT로 로비폰에 전달합니다">
+          <defs>
+            <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker>
+            <marker id="a1h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah hl"/></marker>
+          </defs>
+          <rect class="box" x="330" y="10" width="200" height="54" rx="8"/>
+          <text class="t" x="430" y="34" text-anchor="middle">관리자 PC</text>
+          <text class="s" x="430" y="52" text-anchor="middle">브라우저 · HTTPS</text>
+
+          <rect class="box" x="20" y="124" width="200" height="60" rx="8"/>
+          <text class="t" x="120" y="150" text-anchor="middle">등록 단말 서버</text>
+          <text class="s" x="120" y="170" text-anchor="middle">등록 단말 WAS</text>
+
+          <rect class="box hl" x="330" y="124" width="200" height="60" rx="8"/>
+          <text class="t" x="430" y="150" text-anchor="middle">관리 서버</text>
+          <text class="s" x="430" y="170" text-anchor="middle">출입통제관리 WAS</text>
+
+          <rect class="box" x="640" y="124" width="200" height="60" rx="8"/>
+          <text class="t" x="740" y="150" text-anchor="middle">시설 장비 A</text>
+          <text class="s" x="740" y="170" text-anchor="middle">BioStation 3</text>
+
+          <rect class="box tl" x="330" y="256" width="200" height="60" rx="8"/>
+          <text class="t" x="430" y="282" text-anchor="middle">로비폰 연동 서버</text>
+          <text class="s" x="430" y="302" text-anchor="middle">출입관제 서버 대체</text>
+
+          <rect class="box tl" x="640" y="256" width="200" height="60" rx="8"/>
+          <text class="t" x="740" y="282" text-anchor="middle">로비폰</text>
+          <text class="s" x="740" y="302" text-anchor="middle">출입 인증</text>
+
+          <line class="ln" x1="430" y1="64" x2="430" y2="120" marker-end="url(#a1)"/>
+          <text class="lbl" x="440" y="96">설정</text>
+          <line class="ln hl" x1="220" y1="154" x2="326" y2="154" marker-end="url(#a1h)"/>
+          <text class="lbl hl" x="273" y="146" text-anchor="middle">등록</text>
+          <line class="ln hl" x1="534" y1="154" x2="636" y2="154" marker-start="url(#a1h)" marker-end="url(#a1h)"/>
+          <text class="lbl hl" x="585" y="146" text-anchor="middle">전송 · 회수</text>
+          <line class="ln" x1="430" y1="184" x2="430" y2="252" marker-end="url(#a1)"/>
+          <text class="lbl" x="440" y="222">로비폰용 사진</text>
+          <line class="ln" x1="534" y1="286" x2="636" y2="286" marker-start="url(#a1)" marker-end="url(#a1)"/>
+          <text class="lbl" x="585" y="278" text-anchor="middle">MQTT</text>
+        </svg>
+      </div>
+      <figcaption>관리 서버가 생체 정보를 중앙에서 관리하고, 이용 권한이 있는 시설 장비에만 전송하거나 회수합니다. 로비폰은 출입관제 서버를 대신하는 연동 서버를 통해 MQTT로 연결했습니다.</figcaption>
+    </figure>
+    <div class="cases">
+      <article class="case">
+        <h3>템플릿 정보만 전송 시 장비가 생체정보를 저장하지 않는 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>템플릿만 전송 시 장비는 등록 성공을 응답하지만, 장비에는 생체 정보를 저장하지 않아 인증 실패</p></div>
+          <div><h4>원인</h4><p>생체정보를 빼고 전송했지만 데이터에 '생체정보 포함' 표시가 남아 있어, 장비가 생체 정보를 저장하지 않고 있음을 발견</p></div>
+          <div><h4>해결</h4><p>전송 전 '생체정보 포함' 표시를 끄고 '템플릿 전용' 표시만 남도록 flag 변환</p></div>
+          <div class="result"><h4>결과</h4><p>템플릿만으로 시설 장비 등록 · 1:N 인증 성공, 회수까지 검증</p></div>
+        </div>
+      </article>
+      <article class="case">
+        <h3>한 사람의 생체 정보가 여러 번 저장되어, 인증이 되지 않는 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>장비에서 직접 등록 시 생체 정보에 대한 중복체크를 자체적으로 하지만, 웹으로 등록 시 중복체크를 진행하지 않아 같은 사람의 생체 정보가 여러 번 저장되어 인증이 되지 않는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>장비 템플릿 형식이 비공개라 서버에서 중복 여부를 판단할 수 없음을 확인</p></div>
+          <div><h4>해결</h4><p>장비 템플릿 대신 서버에서 직접 생체 특징값을 추출하는 중복 검사 기능을 웹 등록 과정에 추가</p></div>
+          <div class="result"><h4>결과</h4><p>웹 등록에서도 중복 등록이 차단되어, 같은 사람의 생체 정보가 여러 번 저장되지 않고 있음을 확인</p></div>
+        </div>
+        <div class="extra">
+          <h4>검증 결과</h4>
+          <ul>
+            <li>다른 사람 12쌍의 유사도 0.032 – 0.323, 같은 사람 9쌍 0.394 – 0.965</li>
+            <li>두 구간이 겹치지 않는 지점에 차단 기준 0.363을 둠</li>
+            <li>실제 중복 등록 시도(유사도 0.858)가 차단됨 · 등록자 7명 비교에 108 ms</li>
+          </ul>
+        </div>
+      </article>
+      <article class="case">
+        <h3>장비와 서버의 시간 기준이 달라 출입 허용 시간이 어긋나는 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>당일 이용 기간으로 등록한 사용자가 장비에서 '유효기간 만료'로 인증이 거부되는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>장비는 세계 표준시(UTC)로 시간을 보내면서, 받은 시간은 한국 시간으로 해석함을 확인</p></div>
+          <div><h4>해결</h4><p>당일 이용 기간을 한국 시간 기준으로 변환하여 전송</p></div>
+          <div class="result"><h4>결과</h4><p>당일 이용 기간 안에는 정상 인증되고, 기간이 지나면 '유효기간 만료'를 표시하며 인증 차단됨을 확인</p></div>
+        </div>
+        <div class="extra">
+          <h4>기타 연동 이슈 · 시험 중 함께 찾아 조치한 문제</h4>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>현상</th><th>원인</th><th>조치</th></tr></thead>
+              <tbody>
+                <tr><td>사용자 등록 후 인증 과정에서 서버 인증 단계에서 거부되고 있음을 확인</td><td>장비에서 사용자 정보를 삭제 시 서버 DB의 사용자 정보까지 함께 삭제됨을 확인</td><td>장비에서 사용자 정보를 삭제 시, 삭제 정보가 서버 DB에는 반영되지 않도록 조치</td></tr>
+                <tr><td>장비 관리자로 지정된 사용자를 웹에서 재등록 시 일반 사용자로 바뀌고 있음을 확인</td><td>재등록 시 권한 정보가 기본값(일반 사용자)으로 덮어써지고 있음을 확인</td><td>웹에서 재등록 시, 기존 권한 정보가 그대로 유지되도록 조치</td></tr>
+                <tr><td>로비폰으로 생체 정보 전송 시 연결이 끊겼다 다시 붙기를 반복하고 있음을 확인</td><td>한 번에 보내는 데이터(47 KB)가 메시지 브로커의 최대 크기(8 KB)를 넘고 있음을 확인</td><td>브로커 최대 크기를 늘리고, 전송 데이터도 6.9 KB로 줄이도록 조치</td></tr>
+                <tr><td>Windows에서 작성한 설치 스크립트가 Rocky Linux에서 실행되지 않고 있음을 확인</td><td>줄바꿈 형식이 Windows 방식(CRLF)이라 Linux에서 명령을 인식하지 못하고 있음을 확인</td><td>줄바꿈을 Linux 방식(LF)으로 통일하고, 실행 전 문법 검사를 추가하도록 조치</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+    </div>
+</div></details>
+  </div>
+</dialog>
+<dialog id="d-twin" aria-labelledby="t-twin">
+  <div class="dlg-head"><div><p class="date">정부출연 연구기관 · 2026.06 – 2026.09</p><h2 id="t-twin">네트워크 디지털 트윈 그래프 데이터 수집</h2></div><button type="button" class="close" aria-label="닫기">✕</button></div>
+  <div class="dlg-body">
+<div class="viewer" data-slides="07:네트워크 디지털 트윈 그래프 데이터 수집 프로세스 개발 개요|08:GitLab 변경 내용이 그래프에 반영되지 않는 이슈|09:CSV 변경 내용이 그래프에 반영되지 않던 이슈|10:수집 서버 처리 속도가 느려 변경 데이터가 밀리는 이슈"><div class="stage"><img class="main" src="slides/07.jpg" alt="네트워크 디지털 트윈 그래프 데이터 수집 프로세스 개발 개요" width="1600" height="900" loading="lazy"><button type="button" class="nav prev" aria-label="이전 슬라이드">‹</button><button type="button" class="nav next" aria-label="다음 슬라이드">›</button></div><div class="vbar"><span class="count">1 / 4</span><div class="thumbs"><button type="button" class="th on" data-i="0" aria-label="네트워크 디지털 트윈 그래프 데이터 수집 프로세스 개발 개요"><img src="slides/07.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="1" aria-label="GitLab 변경 내용이 그래프에 반영되지 않는 이슈"><img src="slides/08.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="2" aria-label="CSV 변경 내용이 그래프에 반영되지 않던 이슈"><img src="slides/09.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="3" aria-label="수집 서버 처리 속도가 느려 변경 데이터가 밀리는 이슈"><img src="slides/10.jpg" alt="" loading="lazy"></button></div></div></div>
+<details class="txt"><summary>텍스트로 보기</summary><div class="txt-body">
+<dl class="meta">
+      <div><dt>목적</dt><dd>네트워크 설계 정보와 실제 구성 정보를 하나의 그래프 DB에 적재하여, 장애 발생 시 두 정보를 비교해 장애 위치를 빠르게 찾는 것을 목표</dd></div>
+      <div><dt>역할</dt><dd>설계 · 실제 정보 변경을 그래프 DB에 자동 반영하는 수집 서버와 토폴로지 테스트를 위한 시각화 뷰어 개발</dd></div>
+      <div><dt>수집 데이터</dt><dd>Designed 4종 (Device · Interface · IP · Cable)<br>Actual 7종 (Device · Interface · IP · VLAN · VRF · BGP · OSPF)</dd></div>
+      <div><dt>환경</dt><dd>Java 21 · Spring Boot 3.4 · Kafka · Neo4j · Python(Flask)</dd></div>
+    </dl>
+    <figure class="diagram">
+      <div class="scroll">
+        <svg viewBox="0 0 920 280" role="img" aria-label="Nautobot 설계 정보는 Kafka를 거쳐 Nautobot 수집 서버로, GitLab 실제 정보는 push 훅으로 GitLab 수집 서버로 들어가 Neo4j에 적재되고, 토폴로지 뷰어가 조회합니다">
+          <defs>
+            <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker>
+            <marker id="a2h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah hl"/></marker>
+          </defs>
+          <rect class="box" x="10" y="30" width="140" height="60" rx="8"/>
+          <text class="t" x="80" y="56" text-anchor="middle">Nautobot</text>
+          <text class="s" x="80" y="75" text-anchor="middle">Designed · 설계 관리</text>
+
+          <rect class="box" x="200" y="30" width="110" height="60" rx="8"/>
+          <text class="t" x="255" y="56" text-anchor="middle">Kafka</text>
+          <text class="s" x="255" y="75" text-anchor="middle">메시지 큐</text>
+
+          <rect class="box hl" x="360" y="30" width="180" height="60" rx="8"/>
+          <text class="t" x="450" y="56" text-anchor="middle">Nautobot 수집 서버</text>
+          <text class="s" x="450" y="75" text-anchor="middle">변경 데이터 수신 후 CSV 변환</text>
+
+          <rect class="box" x="10" y="190" width="140" height="60" rx="8"/>
+          <text class="t" x="80" y="216" text-anchor="middle">GitLab</text>
+          <text class="s" x="80" y="235" text-anchor="middle">Actual · CSV 48개</text>
+
+          <rect class="box hl" x="360" y="190" width="180" height="60" rx="8"/>
+          <text class="t" x="450" y="216" text-anchor="middle">GitLab 수집 서버</text>
+          <text class="s" x="450" y="235" text-anchor="middle">변경 CSV 수신</text>
+
+          <rect class="box tl" x="600" y="30" width="140" height="220" rx="8"/>
+          <text class="t" x="670" y="128" text-anchor="middle">그래프 DB · Neo4j</text>
+          <text class="s" x="670" y="148" text-anchor="middle">설계 · 실제 정보를</text>
+          <text class="s" x="670" y="164" text-anchor="middle">한 그래프로</text>
+
+          <rect class="box" x="790" y="110" width="124" height="60" rx="8"/>
+          <text class="t" x="852" y="136" text-anchor="middle">토폴로지 뷰어</text>
+          <text class="s" x="852" y="155" text-anchor="middle">Flask · Cytoscape.js</text>
+
+          <line class="ln" x1="150" y1="60" x2="196" y2="60" marker-end="url(#a2)"/>
+          <text class="lbl" x="173" y="52" text-anchor="middle">전송</text>
+          <line class="ln" x1="310" y1="60" x2="356" y2="60" marker-end="url(#a2)"/>
+          <text class="lbl" x="333" y="52" text-anchor="middle">전송</text>
+          <line class="ln" x1="150" y1="220" x2="356" y2="220" marker-end="url(#a2)"/>
+          <text class="lbl" x="253" y="212" text-anchor="middle">push 훅 · 변경 CSV 포함</text>
+          <line class="ln hl" x1="540" y1="60" x2="596" y2="60" marker-end="url(#a2h)"/>
+          <text class="lbl hl" x="568" y="52" text-anchor="middle">적재</text>
+          <line class="ln hl" x1="540" y1="220" x2="596" y2="220" marker-end="url(#a2h)"/>
+          <text class="lbl hl" x="568" y="212" text-anchor="middle">적재</text>
+          <line class="ln" x1="740" y1="140" x2="786" y2="140" marker-end="url(#a2)"/>
+          <text class="lbl" x="763" y="132" text-anchor="middle">조회</text>
+        </svg>
+      </div>
+      <figcaption>위쪽은 설계 정보(Designed), 아래쪽은 실제 구성 정보(Actual)가 들어오는 경로입니다. 두 수집 서버가 변경분을 같은 그래프 DB에 반영합니다.</figcaption>
+    </figure>
+    <div class="cases">
+      <article class="case">
+        <h3>GitLab 변경 내용이 그래프에 반영되지 않는 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>Webhook으로 변경된 파일 경로는 받았지만, 파일 내용을 가져오지 못해 그래프에 반영되지 않는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>Webhook은 파일 경로만 보내고, 배포망은 GitLab → 서버 방향만 열려 있어 서버가 GitLab에 파일 내용을 요청할 수 없음을 확인</p></div>
+          <div><h4>해결</h4><p>GitLab의 post-receive 훅이 push 시 변경된 CSV 내용까지 담아 전송하도록 변경하여, 서버가 GitLab에 다시 요청하지 않도록 조치</p></div>
+          <div class="result"><h4>결과</h4><p>push 후 약 1.2초 만에 변경 내용이 그래프에 반영되고, 훅 오류가 발생해도 push는 정상 완료됨을 확인</p></div>
+        </div>
+      </article>
+      <article class="case">
+        <h3>CSV 변경 내용이 그래프에 반영되지 않던 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>데이터 변경 알림을 받으면 기존 데이터를 삭제하지 않고 변경된 데이터를 추가로 등록해, 토폴로지가 깨지는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>그래프 적재가 연결을 추가 · 갱신만 하고, CSV에서 사라진 연결은 삭제하지 않음을 확인</p></div>
+          <div><h4>해결</h4><p>적재 후 CSV에 없는 연결을 삭제하는 정리 단계를 추가하고, 과도한 삭제를 막는 예외 처리 적용</p></div>
+          <div class="result"><h4>결과</h4><p>CSV를 바꾸거나 되돌려도 그래프가 CSV와 같은 연결 상태로 유지됨을 확인</p></div>
+        </div>
+        <div class="extra">
+          <h4>예외 처리</h4>
+          <ul>
+            <li>CSV가 비어 있으면 정리 단계 건너뜀</li>
+            <li>20% 넘게 삭제하려 하면 전체 취소</li>
+            <li>장비 · 인터페이스는 삭제하지 않음</li>
+          </ul>
+        </div>
+      </article>
+      <article class="case">
+        <h3>수집 서버 처리 속도가 느려 변경 데이터가 밀리는 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>Nautobot 변경 데이터가 Kafka에 계속 쌓이는데, 수집 서버가 초당 5건만 처리해 975만 건이 밀리는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>메시지마다 그래프 DB에 바로 쓰고, 모든 메시지를 파일로 저장해 처리 속도가 느림을 확인</p></div>
+          <div><h4>해결</h4><p>변경 내용을 메모리에 모았다가 한 번에 반영하고, 실패한 메시지만 파일로 저장하도록 조치</p></div>
+          <div class="result"><h4>결과</h4><p>처리 속도가 초당 5건에서 1,900건으로 늘어, 밀린 975만 건을 약 30분 만에 처리함을 확인</p></div>
+        </div>
+      </article>
+    </div>
+</div></details>
+  </div>
+</dialog>
+<dialog id="d-datahub" aria-labelledby="t-datahub">
+  <div class="dlg-head"><div><p class="date">해외 ODA 사업 (파라과이) · 2024.12 – 2026.01</p><h2 id="t-datahub">축산 데이터허브 통합관리시스템 구축</h2></div><button type="button" class="close" aria-label="닫기">✕</button></div>
+  <div class="dlg-body">
+<div class="viewer" data-slides="11:축산 데이터허브 통합관리시스템 구축 개요|12:기존 데이터를 그대로 집계할 수 없던 이슈|13:현지 설치 · 교육 · 인수인계와 운영 중 해결한 이슈"><div class="stage"><img class="main" src="slides/11.jpg" alt="축산 데이터허브 통합관리시스템 구축 개요" width="1600" height="900" loading="lazy"><button type="button" class="nav prev" aria-label="이전 슬라이드">‹</button><button type="button" class="nav next" aria-label="다음 슬라이드">›</button></div><div class="vbar"><span class="count">1 / 3</span><div class="thumbs"><button type="button" class="th on" data-i="0" aria-label="축산 데이터허브 통합관리시스템 구축 개요"><img src="slides/11.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="1" aria-label="기존 데이터를 그대로 집계할 수 없던 이슈"><img src="slides/12.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="2" aria-label="현지 설치 · 교육 · 인수인계와 운영 중 해결한 이슈"><img src="slides/13.jpg" alt="" loading="lazy"></button></div></div></div>
+<details class="txt"><summary>텍스트로 보기</summary><div class="txt-body">
+<dl class="meta">
+      <div><dt>목적</dt><dd>분리된 2개 시스템의 데이터를 한곳에 모아, 엑셀 수작업 리포트를 대시보드 · 리포트 조회로 전환</dd></div>
+      <div><dt>역할</dt><dd>화면 설계부터 관리시스템 전체 개발, 현지 설치 · 교육</dd></div>
+      <div><dt>제공 기능</dt><dd>축산 · 회계 대시보드 · 리포트, 데이터 사전, 사용자 권한 관리, 시스템 모니터링</dd></div>
+      <div><dt>환경</dt><dd>Java 8 · Spring Boot 2.3 · MyBatis · MariaDB · Google OTP</dd></div>
+    </dl>
+    <figure class="diagram">
+      <div class="scroll">
+        <svg viewBox="0 0 920 270" role="img" aria-label="회계 ERP와 재단 앱의 데이터를 Apache NiFi로 수집해 통계 DB에 적재하고, 관리시스템이 이를 조회해 현지 사용자에게 제공합니다">
+          <defs>
+            <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker>
+            <marker id="a3h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah hl"/></marker>
+          </defs>
+          <rect class="box" x="10" y="30" width="160" height="60" rx="8"/>
+          <text class="t" x="90" y="56" text-anchor="middle">회계 ERP</text>
+          <text class="s" x="90" y="75" text-anchor="middle">기존 시스템 · HBS</text>
+          <rect class="box" x="10" y="170" width="160" height="60" rx="8"/>
+          <text class="t" x="90" y="196" text-anchor="middle">재단 앱</text>
+          <text class="s" x="90" y="215" text-anchor="middle">기존 시스템 · fundapp</text>
+
+          <rect class="box" x="230" y="100" width="130" height="60" rx="8"/>
+          <text class="t" x="295" y="126" text-anchor="middle">Apache NiFi</text>
+          <text class="s" x="295" y="145" text-anchor="middle">수집</text>
+
+          <rect class="box" x="420" y="100" width="120" height="60" rx="8"/>
+          <text class="t" x="480" y="126" text-anchor="middle">통계 DB</text>
+          <text class="s" x="480" y="145" text-anchor="middle">MariaDB</text>
+
+          <rect class="box hl" x="600" y="10" width="170" height="240" rx="8"/>
+          <text class="t" x="685" y="40" text-anchor="middle">관리시스템</text>
+          <text class="s" x="685" y="78" text-anchor="middle">대시보드 · 리포트</text>
+          <text class="s" x="685" y="112" text-anchor="middle">데이터 사전</text>
+          <text class="s" x="685" y="146" text-anchor="middle">사용자 · 권한 관리</text>
+          <text class="s" x="685" y="180" text-anchor="middle">시스템 모니터링</text>
+          <text class="s" x="685" y="214" text-anchor="middle">OTP 로그인</text>
+
+          <rect class="box" x="810" y="100" width="104" height="60" rx="8"/>
+          <text class="t" x="862" y="126" text-anchor="middle">현지 사용자</text>
+          <text class="s" x="862" y="145" text-anchor="middle">담당자 · 관리자</text>
+
+          <line class="ln" x1="170" y1="60" x2="226" y2="118" marker-end="url(#a3)"/>
+          <line class="ln" x1="170" y1="200" x2="226" y2="142" marker-end="url(#a3)"/>
+          <line class="ln" x1="360" y1="130" x2="416" y2="130" marker-end="url(#a3)"/>
+          <text class="lbl" x="388" y="122" text-anchor="middle">적재</text>
+          <line class="ln hl" x1="540" y1="130" x2="596" y2="130" marker-end="url(#a3h)"/>
+          <text class="lbl hl" x="568" y="122" text-anchor="middle">조회</text>
+          <line class="ln" x1="810" y1="130" x2="774" y2="130" marker-end="url(#a3)"/>
+          <text class="lbl" x="792" y="122" text-anchor="middle">사용</text>
+        </svg>
+      </div>
+      <figcaption>따로 운영되던 회계 ERP와 재단 앱의 데이터를 통계 DB로 모아, 현지 담당자가 엑셀로 만들던 리포트를 관리시스템에서 바로 조회합니다.</figcaption>
+    </figure>
+    <div class="cases">
+      <article class="case">
+        <h3>기존 데이터를 그대로 집계할 수 없던 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>엑셀 리포트를 자동 집계로 전환하자, 기존 데이터 값이 제각각이라 집계 결과가 맞지 않는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>기존 시스템마다 입력 형식이 달라 날짜 · 금액 · 수량 값이 일정하지 않음을 확인</p></div>
+          <div><h4>해결</h4><p>집계 전에 날짜 형식을 하나로 맞추고 금액 0 · 빈 값을 따로 처리하도록 정리 규칙을 적용하여 조치</p></div>
+          <div class="result"><h4>결과</h4><p>엑셀 수작업 없이 리포트를 바로 조회하고, 기존 미수금 계산 방식도 그대로 유지됨을 확인</p></div>
+        </div>
+        <div class="extra">
+          <h4>데이터 정리 규칙</h4>
+          <ul>
+            <li>날짜 형식 혼재 (2024/03/05 · 2024-03-05) → 2024-03-05로 맞춘 뒤 집계</li>
+            <li>금액 0인 송장 → 비율 계산에서 제외해 0으로 나누는 오류 방지</li>
+            <li>빈 수량 값 → 값 없음으로 처리해 0으로 합산되지 않도록 처리</li>
+          </ul>
+        </div>
+      </article>
+      <article class="case">
+        <h3>현지 설치 · 교육 · 인수인계와 운영 중 해결한 이슈</h3>
+        <div class="tl">
+          <div><h5>1차 출장 · 2025.07</h5><dl><dt>07.21</dt><dd>현지 서버 설치</dd><dt>07.22</dt><dd>설치 검증</dd><dt>07.23–24</dt><dd>사용자 교육</dd><dt>07.25</dt><dd>축산 박람회 발표자료 작성</dd></dl></div>
+          <div><h5>2차 출장 · 2025.09</h5><dl><dt>09.23</dt><dd>최종 설치</dd><dt>09.24–25</dt><dd>운영자 교육</dd><dt>09.26</dt><dd>인수인계</dd></dl></div>
+        </div>
+        <div class="extra">
+          <h4>해결한 이슈 · 현지 적용 · 운영 중 발견하여 조치</h4>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead><tr><th>현상</th><th>원인</th><th>조치</th></tr></thead>
+              <tbody>
+                <tr><td>리포트의 차트와 표 수치가 서로 다르게 표시됨을 확인</td><td>표 조회에만 별도의 기간 조건이 적용되고 있음을 확인</td><td>별도 기간 조건을 제거해 차트와 같은 기준으로 집계하도록 조치</td></tr>
+                <tr><td>데이터가 없는 기간을 조회하면 대시보드 수치가 빈 칸으로 표시됨을 확인</td><td>집계 결과가 없을 때 빈 값이 그대로 화면에 전달되고 있음을 확인</td><td>결과가 없으면 0으로 표시하고, 조회 조건은 문자열 결합 대신 파라미터 바인딩으로 변경</td></tr>
+                <tr><td>언어 정보 없이 접속하면 리포트 화면에서 오류가 발생함을 확인</td><td>로그인 정보에 언어 값이 없는 경우를 처리하지 않고 있음을 확인</td><td>언어 값이 없으면 영어를 기본으로 적용하도록 조치</td></tr>
+                <tr><td>주소와 포트만 입력하면 화면이 열리지 않음을 확인</td><td>기본 주소에 연결된 화면이 없음을 확인</td><td>로그인 여부에 따라 로그인 화면 또는 대시보드로 이동하도록 조치</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </article>
+    </div>
+</div></details>
+  </div>
+</dialog>
+<dialog id="d-traffic" aria-labelledby="t-traffic">
+  <div class="dlg-head"><div><p class="date">국내 통신사 · 2024.02 – 진행 중</p><h2 id="t-traffic">트래픽 분석 시스템 운영 및 고도화</h2></div><button type="button" class="close" aria-label="닫기">✕</button></div>
+  <div class="dlg-body">
+<div class="viewer" data-slides="14:트래픽 분석 시스템 운영 및 고도화 개요|15:마이그레이션 후 기존 라이브러리가 호환되지 않던 이슈|16:단일 인증만으로 운영 중이던 로그인 보안 이슈|17:2주 안에 오픈 전 결함 48건을 처리해야 했던 이슈"><div class="stage"><img class="main" src="slides/14.jpg" alt="트래픽 분석 시스템 운영 및 고도화 개요" width="1600" height="900" loading="lazy"><button type="button" class="nav prev" aria-label="이전 슬라이드">‹</button><button type="button" class="nav next" aria-label="다음 슬라이드">›</button></div><div class="vbar"><span class="count">1 / 4</span><div class="thumbs"><button type="button" class="th on" data-i="0" aria-label="트래픽 분석 시스템 운영 및 고도화 개요"><img src="slides/14.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="1" aria-label="마이그레이션 후 기존 라이브러리가 호환되지 않던 이슈"><img src="slides/15.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="2" aria-label="단일 인증만으로 운영 중이던 로그인 보안 이슈"><img src="slides/16.jpg" alt="" loading="lazy"></button><button type="button" class="th" data-i="3" aria-label="2주 안에 오픈 전 결함 48건을 처리해야 했던 이슈"><img src="slides/17.jpg" alt="" loading="lazy"></button></div></div></div>
+<details class="txt"><summary>텍스트로 보기</summary><div class="txt-body">
+<dl class="meta">
+      <div><dt>목적</dt><dd>트래픽 분석 시스템의 안정적인 운영과 보안 · 기능 고도화</dd></div>
+      <div><dt>역할</dt><dd>운영 담당자로서 장애 대응부터 보안 진단 조치, 고도화 개발까지 전담</dd></div>
+      <div><dt>대상 시스템</dt><dd>Main · B2B · Edge</dd></div>
+      <div><dt>환경</dt><dd>Java 21 · Spring 6.1 · 전자정부 4.2 · MyBatis · MariaDB · Trino · Keycloak</dd></div>
+    </dl>
+    <div class="years" aria-label="연도별 주요 작업">
+      <div class="year"><div class="y"><strong>2024</strong><span>운영 안정화</span></div><ul><li>유지보수 인수 · 운영 서버 관리</li><li>월 1회 정기점검 (시스템 · 웹)</li><li>보안 진단 지적 28건 조치</li></ul></div>
+      <div class="year"><div class="y"><strong>2025</strong><span>보안 · 고도화</span></div><ul><li>고도화 사업 참여</li><li>로그인 2차 인증(TOTP) 설계 · 개발</li><li>오픈 전 이슈 43건 조치 (Critical 15건 전부)</li></ul></div>
+      <div class="year"><div class="y"><strong>2026</strong><span>마이그레이션</span></div><ul><li>Java 21 · Tomcat 11 전환</li><li>Spring 4.3 → 6.1, javax → jakarta</li><li>236개 파일 수정, 라이브러리 30개 이상 상향</li></ul></div>
+    </div>
+    <div class="cases">
+      <article class="case">
+        <h3>마이그레이션 후 기존 라이브러리가 호환되지 않던 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>마이그레이션 후 일부 라이브러리가 동작하지 않아 서비스가 기동되지 않는 이슈 발견</p></div>
+          <div><h4>원인</h4><p>Tomcat 11에서 javax 패키지가 jakarta로 바뀌어, javax 기반 라이브러리를 더 이상 사용할 수 없음을 확인</p></div>
+          <div><h4>해결</h4><p>라이브러리 30개 이상을 Jakarta 호환 버전으로 상향하고, 호환 버전이 없는 레이아웃 · 파일 업로드 · 보안 필터 · DB 공통 클래스는 직접 구현하여 조치</p></div>
+          <div class="result"><h4>결과</h4><p>3개 시스템이 Java 21 · Tomcat 11에서 정상 기동되고, 기존 기능이 그대로 동작함을 확인</p></div>
+        </div>
+        <div class="extra">
+          <h4>버전 상향 · 주요 프레임워크 · 라이브러리</h4>
+          <div class="chips">
+            <span class="chip">Java <b>1.8 → 21</b></span>
+            <span class="chip">Tomcat <b>9 → 11</b></span>
+            <span class="chip">Spring <b>4.3 → 6.1</b></span>
+            <span class="chip">전자정부 <b>3.8 → 4.2</b></span>
+            <span class="chip">Apache POI <b>3.11 → 5.3</b></span>
+            <span class="chip">Jackson <b>2.9 → 2.17</b></span>
+            <span class="chip">Jersey <b>1.19 → 3.1</b></span>
+            <span class="chip">MySQL Connector <b>5.1 → 9.0</b></span>
+          </div>
+        </div>
+      </article>
+      <article class="case">
+        <h3>단일 인증만으로 운영 중이던 로그인 보안 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>보안 진단에서 ID · 비밀번호만으로 로그인되는 구조로, 비밀번호 유출 시 계정 도용 위험이 있음을 확인</p></div>
+          <div><h4>원인</h4><p>비밀번호 외 추가 인증 수단이 없어 계정 보호가 어려움을 확인</p></div>
+          <div><h4>해결</h4><p>Keycloak TOTP 기반 OTP 2차 인증을 도입하고, QR 메일로 등록해 로그인 시 OTP를 함께 확인하도록 조치</p></div>
+          <div class="result"><h4>결과</h4><p>3개 시스템에 2차 인증을 적용하고, 보안 진단의 인증 취약점 지적이 해소됨을 확인</p></div>
+        </div>
+        <div class="extra">
+          <h4>예외 처리</h4>
+          <ul>
+            <li>3분 내 OTP 미입력 시 등록 취소</li>
+            <li>같은 계정의 중복 요청 차단</li>
+            <li>계정별 2차 인증 사용 설정</li>
+            <li>설정 변경 이력 기록</li>
+          </ul>
+        </div>
+      </article>
+      <article class="case">
+        <h3>2주 안에 오픈 전 결함 48건을 처리해야 했던 이슈</h3>
+        <div class="steps">
+          <div><h4>문제</h4><p>오픈 직전 등록된 담당 결함 중 Critical 등급만 15건으로, 오픈 일정에 영향을 줄 수 있는 상황 발생</p></div>
+          <div><h4>원인</h4><p>고도화로 계정 관리 · 대시보드 · 분석 화면이 동시에 바뀌면서, 오픈 전 점검에서 오류가 한꺼번에 드러났음을 확인</p></div>
+          <div><h4>해결</h4><p>Critical → Major → Minor 순으로 처리 순서를 정하고, 오픈에 영향을 주는 결함부터 조치</p></div>
+          <div class="result"><h4>결과</h4><p>2주 동안 담당 결함의 90%(43/48)를 조치하고, Critical 결함은 남김없이 해결</p></div>
+        </div>
+        <div class="extra">
+          <h4>조치한 Critical 결함 예시</h4>
+          <ul>
+            <li>OTP 등록 화면 개선 요청 → OTP 입력 영역을 바로 표시하고, 입력 시간을 3분으로 제한</li>
+            <li>QR 코드 재전송 기능 요청 → 마스터 권한 사용자에게 QR 코드 재전송 기능 제공</li>
+            <li>계정 수정 · 삭제 · 일괄 변경 오류 → 계정 관리 기능 4건 수정</li>
+            <li>승인 전 권한 변경 신청 오류 → 관리자 승인 전 사용자의 권한 변경 신청 처리 수정</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+</div></details>
+  </div>
+</dialog>
+
+<script>
+const hdr = document.querySelector('.top');
+const onScroll = () => hdr.classList.toggle('solid', window.scrollY > 40);
+window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => {
+  const d = document.getElementById('d-' + b.dataset.open);
+  d.showModal(); d.scrollTop = 0; document.body.style.overflow = 'hidden';
+}));
+document.querySelectorAll('.viewer').forEach(v => {
+  const list = v.dataset.slides.split('|').map(x => { const k = x.indexOf(':'); return { n: x.slice(0, k), t: x.slice(k + 1) }; });
+  const img = v.querySelector('.main'), cnt = v.querySelector('.count');
+  const prev = v.querySelector('.prev'), next = v.querySelector('.next');
+  const ths = [...v.querySelectorAll('.th')];
+  let i = 0;
+  const show = k => {
+    i = Math.max(0, Math.min(list.length - 1, k));
+    img.src = 'slides/' + list[i].n + '.jpg'; img.alt = list[i].t;
+    cnt.textContent = (i + 1) + ' / ' + list.length;
+    ths.forEach((b, j) => b.classList.toggle('on', j === i));
+    prev.disabled = i === 0; next.disabled = i === list.length - 1;
+  };
+  prev.addEventListener('click', () => show(i - 1));
+  next.addEventListener('click', () => show(i + 1));
+  ths.forEach((b, j) => b.addEventListener('click', () => show(j)));
+  v.closest('dialog').addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') { show(i - 1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { show(i + 1); e.preventDefault(); }
+  });
+  v.closest('dialog').addEventListener('close', () => show(0));
+  show(0);
+});
+document.querySelectorAll('dialog').forEach(d => {
+  d.querySelector('.close').addEventListener('click', () => d.close());
+  d.addEventListener('click', e => { if (e.target === d) d.close(); });
+  d.addEventListener('close', () => { document.body.style.overflow = ''; });
+});
+</script>
+</body>
+</html>
