@@ -234,7 +234,7 @@ footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13p
     <h1>최일광<small>백엔드 개발자 포트폴리오</small></h1>
     <div class="bar"></div>
     <p>장비 연동, 데이터 수집, 레거시 시스템 마이그레이션까지, 운영 중에 생기는 문제를 원인부터 찾아 해결해 온 백엔드 개발자입니다.</p>
-    <div class="btns"><a class="go" href="#about">더 알아보기 ↓</a><a class="dl" href="portfolio.pdf" download="최일광_포트폴리오.pdf">PDF 다운로드</a></div>
+    <div class="btns"><a class="go" href="#about">더 알아보기 ↓</a><a class="dl" href="portfolio.pdf" download="최일광_포트폴리오.pdf" data-goatcounter-click="pdf-download" data-goatcounter-title="PDF 다운로드">PDF 다운로드</a></div>
   </div>
 </section>
 
@@ -276,7 +276,7 @@ footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13p
   <p class="one">생체 정보를 중앙 서버에 등록하고, 이용 권한이 있는 시설의 단말에만 전송하는 출입통제 연동 시스템</p>
   <ul><li>연동 서버 · 관리 서버 · 로비폰 연동 서버 개발과 시험 환경 구성을 단독 수행</li><li>템플릿만 전송 시 장비가 저장하지 않던 문제를 '템플릿 전용' flag 변환으로 해결</li><li>서버에서 생체 특징값을 추출하는 웹 등록 중복 검사 추가 (차단 기준 0.363)</li><li>장비의 UTC 시간 해석 차이로 어긋나던 출입 허용 시간 보정</li></ul>
   <p class="tech">Java 21 · Spring Boot 3.3.5 · G-SDK(gRPC) · MariaDB · Rocky Linux 9.7 · MQTT</p>
-  <button type="button" class="more" data-open="access">자세히 보기</button>
+  <button type="button" class="more" data-open="access" data-goatcounter-click="detail-access" data-goatcounter-title="자세히 보기 · 출입통제 통합관리 시스템 구축 시험">자세히 보기</button>
 </article>
 <article class="card">
   <span class="pill">정부출연 연구기관</span>
@@ -285,7 +285,7 @@ footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13p
   <p class="one">네트워크 설계 정보와 실제 구성 정보를 하나의 그래프 DB에 모아, 장애 위치를 빠르게 찾기 위한 수집 프로세스</p>
   <ul><li>Nautobot(Kafka) · GitLab(push 훅) 변경을 Neo4j에 자동 반영하는 수집 서버 2종 개발</li><li>단방향 배포망에서 훅이 CSV 내용까지 보내도록 바꿔 push 후 약 1.2초 만에 반영</li><li>CSV에서 사라진 연결을 정리하는 단계를 추가해 그래프와 CSV를 같은 상태로 유지</li><li>토폴로지 테스트용 시각화 뷰어 개발 (Flask · Cytoscape.js)</li></ul>
   <p class="tech">Java 21 · Spring Boot 3.4 · Kafka · Neo4j · Python · Flask · Cytoscape.js</p>
-  <button type="button" class="more" data-open="twin">자세히 보기</button>
+  <button type="button" class="more" data-open="twin" data-goatcounter-click="detail-twin" data-goatcounter-title="자세히 보기 · 네트워크 디지털 트윈 그래프 데이터 수집">자세히 보기</button>
 </article>
 <article class="card">
   <span class="pill">해외 ODA 사업 (파라과이)</span>
@@ -294,7 +294,7 @@ footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13p
   <p class="one">분리된 2개 시스템의 데이터를 한곳에 모아, 엑셀 수작업 리포트를 대시보드 · 리포트 조회로 전환</p>
   <ul><li>화면 설계부터 관리시스템 전체 개발 (대시보드 · 리포트, 데이터 사전, 권한 관리, 모니터링)</li><li>날짜 · 금액 · 수량 정리 규칙을 적용해 기존 데이터의 집계 오류 해결</li><li>2회 현지 출장으로 서버 설치 · 사용자 교육 · 인수인계 수행</li><li>운영 중 발견한 리포트 · 대시보드 · 로그인 이슈 4건 조치</li></ul>
   <p class="tech">Java 8 · Spring Boot 2.3 · MyBatis · MariaDB · Apache NiFi · Google OTP</p>
-  <button type="button" class="more" data-open="datahub">자세히 보기</button>
+  <button type="button" class="more" data-open="datahub" data-goatcounter-click="detail-datahub" data-goatcounter-title="자세히 보기 · 축산 데이터허브 통합관리시스템 구축">자세히 보기</button>
 </article>
 <article class="card">
   <span class="pill">국내 통신사</span>
@@ -303,7 +303,7 @@ footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13p
   <p class="one">Main · B2B · Edge 3개 트래픽 분석 시스템의 운영과 보안 · 기능 고도화를 전담</p>
   <ul><li>Java 1.8 → 21, Tomcat 9 → 11, Spring 4.3 → 6.1 마이그레이션 (236개 파일 수정)</li><li>Keycloak TOTP 기반 로그인 2차 인증 설계 · 개발</li><li>고도화 오픈 전 결함 43건 조치 (Critical 15건 전부)</li><li>보안 진단 지적 28건 조치, 월 1회 정기점검</li></ul>
   <p class="tech">Java 21 · Spring 6.1 · 전자정부 4.2 · MyBatis · MariaDB · Trino · Keycloak · Tomcat 11</p>
-  <button type="button" class="more" data-open="traffic">자세히 보기</button>
+  <button type="button" class="more" data-open="traffic" data-goatcounter-click="detail-traffic" data-goatcounter-title="자세히 보기 · 트래픽 분석 시스템 운영 및 고도화">자세히 보기</button>
 </article>
       </div>
     </div>
@@ -348,7 +348,7 @@ footer { background: #131f47; color: #8e9bb8; text-align: center; font-size: 13p
   <div class="wrap">
     <h2>CONTACT</h2>
     <p><a href="mailto:ig95@dgu.ac.kr">ig95@dgu.ac.kr</a></p>
-    <p class="contact-dl"><a class="dl" href="portfolio.pdf" download="최일광_포트폴리오.pdf">PDF 다운로드</a></p>
+    <p class="contact-dl"><a class="dl" href="portfolio.pdf" download="최일광_포트폴리오.pdf" data-goatcounter-click="pdf-download" data-goatcounter-title="PDF 다운로드">PDF 다운로드</a></p>
   </div>
 </section>
 <footer>© 2026 최일광</footer>
@@ -783,5 +783,6 @@ document.querySelectorAll('dialog').forEach(d => {
   d.addEventListener('close', () => { document.body.style.overflow = ''; });
 });
 </script>
+<script data-goatcounter="https://ilgwang.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
